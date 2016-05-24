@@ -16,7 +16,7 @@ namespace Xena.Micro.ZipCodeService
 
         private object GetService()
         {
-            var url = Dns.GetHostEntry("zipcode");
+            var url = Dns.GetHostAddresses("zipcode");
             return url;
         }
 
