@@ -19,20 +19,20 @@ namespace Xena.Micro.ZipCodeService
         private async Task<object> GetService()
         {
             var environmentVariables = Environment.GetEnvironmentVariables();
-            var host = environmentVariables["zIPCODE_SERVICE_HOST"];
-            var port = environmentVariables["zIPCODE_SERVICE_PORT"];
+            var host = environmentVariables["ZIPCODE_SERVICE_HOST"];
+            var port = environmentVariables["ZIPCODE_SERVICE_PORT"];
             try
             {
                 using (var client = new HttpClient())
                 {
                     var urlCalled = $"http://{host}:{port}/DK/Zip/9000";
-                    return new
-                    {
-                        host,
-                        port,
-                        urlCalled, 
-                        variables = environmentVariables
-                    };
+                    //return new
+                    //{
+                    //    host,
+                    //    port,
+                    //    urlCalled, 
+                    //    variables = environmentVariables
+                    //};
                     var result = await client.GetAsync(urlCalled);
                     if (!result.IsSuccessStatusCode)
                     {
