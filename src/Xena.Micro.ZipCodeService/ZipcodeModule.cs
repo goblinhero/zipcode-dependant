@@ -29,7 +29,8 @@ namespace Xena.Micro.ZipCodeService
                     {
                         host,
                         port,
-                        urlCalled
+                        urlCalled, 
+                        variables = Environment.GetEnvironmentVariables()
                     };
                     var result = await client.GetAsync(urlCalled);
                     if (!result.IsSuccessStatusCode)
