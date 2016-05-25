@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Mono.Unix;
 using Mono.Unix.Native;
+using Nancy;
 using Nancy.Hosting.Self;
 
 namespace Xena.Micro.ZipCodeService
@@ -12,6 +13,7 @@ namespace Xena.Micro.ZipCodeService
         private static void Main(string[] args)
         {
             var uri = "http://localhost:8900";
+            StaticConfiguration.DisableErrorTraces = false;
             using (var host = new NancyHost(new HostConfiguration {UrlReservations = new UrlReservations {CreateAutomatically = true}}, new Uri(uri)))
             {
                 IEnumerable<string> errors;
