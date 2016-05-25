@@ -18,35 +18,19 @@ namespace Xena.Micro.ZipCodeService
 
         private async Task<object> GetService()
         {
+            var host = Environment.GetEnvironmentVariable("zIPCODE_SERVICE_HOST");
+            var port = Environment.GetEnvironmentVariable("zIPCODE_SERVICE_PORT");
             using (var client = new HttpClient())
             {
-                var req = await client.GetAsync("http://zipcode-1/DK/Zip/9000");
-                if (req.IsSuccessStatusCode)
+                var result = await client.GetAsync($"{host}:{port}/DK/Zip/9000");
+                if (!result.IsSuccessStatusCode)
                 {
-                    var str = await req.Content.ReadAsStringAsync();
-                    return str;
+                    return new NotAcceptableResponse();
                 }
+                var zip = await result.Content.ReadAsStringAsync();
+                return zip;
             }
-            return Environment.GetEnvironmentVariables();
         }
 
-        private object GetZipcodes(string countryCode)
-        {
-            var country = new Country(countryCode);
-            IList<Zipcode> zipCodes;
-            IEnumerable<string> errors;
-            if (_repository.GetZipByCountry(country, out zipCodes, out errors))
-                return zipCodes;
-            return new NotAcceptableResponse { ReasonPhrase = string.Join(Environment.NewLine, errors) };
-        }
-
-        private object GetZipcode(string countryCode, string zip)
-        {
-            var country = new Country(countryCode);
-            Zipcode zipcode;
-            if (_repository.TryGetZip(zip, out zipcode, country))
-                return zipcode;
-            return new NotFoundResponse();
-        }
     }
 }
