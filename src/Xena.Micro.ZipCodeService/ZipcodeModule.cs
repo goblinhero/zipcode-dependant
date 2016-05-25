@@ -24,7 +24,7 @@ namespace Xena.Micro.ZipCodeService
             {
                 using (var client = new HttpClient())
                 {
-                    var urlCalled = $"{host}:{port}/DK/Zip/9000";
+                    var urlCalled = $"http://{host}:{port}/DK/Zip/9000";
                     var result = await client.GetAsync(urlCalled);
                     if (!result.IsSuccessStatusCode)
                     {
