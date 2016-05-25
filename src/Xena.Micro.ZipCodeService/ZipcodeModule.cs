@@ -20,15 +20,23 @@ namespace Xena.Micro.ZipCodeService
         {
             var host = Environment.GetEnvironmentVariable("zIPCODE_SERVICE_HOST");
             var port = Environment.GetEnvironmentVariable("zIPCODE_SERVICE_PORT");
-            using (var client = new HttpClient())
+            try
             {
-                var result = await client.GetAsync($"{host}:{port}/DK/Zip/9000");
-                if (!result.IsSuccessStatusCode)
+                using (var client = new HttpClient())
                 {
-                    return new NotAcceptableResponse();
+                    var urlCalled = $"{host}:{port}/DK/Zip/9000";
+                    var result = await client.GetAsync(urlCalled);
+                    if (!result.IsSuccessStatusCode)
+                    {
+                        return $"something went odd calling {urlCalled}:{result.ReasonPhrase}";
+                    }
+                    var zip = await result.Content.ReadAsStringAsync();
+                    return zip;
                 }
-                var zip = await result.Content.ReadAsStringAsync();
-                return zip;
+            }
+            catch (Exception ex)
+            {
+                return $"Something broke: {ex.Message} Stack:{ex.StackTrace}";              
             }
         }
 
