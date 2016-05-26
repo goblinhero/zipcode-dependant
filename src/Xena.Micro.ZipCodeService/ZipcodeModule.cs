@@ -25,7 +25,7 @@ namespace Xena.Micro.ZipCodeService
             {
                 using (var client = new HttpClient())
                 {
-                    var urlCalled = $"http://{host}:{port}/Api/DK/Zip/9000";
+                    var urlCalled = $"http://{host}:{port}/DK/Zip/9000";
                     //return new
                     //{
                     //    host,
