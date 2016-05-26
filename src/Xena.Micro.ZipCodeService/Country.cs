@@ -316,11 +316,6 @@ namespace Xena.Micro.ZipCodeService
         }
 
         public string Name { get; private set; }
-        public string DisplayName
-        {
-            get { return ResourceExtensions.GetLocalizedCountryName(Name); }
-        }
-
         public bool IsInEU
         {
             get { return _euCountries.Contains(Name.ToUpper()); }
