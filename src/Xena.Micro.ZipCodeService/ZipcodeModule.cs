@@ -36,7 +36,11 @@ namespace Xena.Micro.ZipCodeService
                     var result = await client.GetAsync(urlCalled);
                     if (!result.IsSuccessStatusCode)
                     {
-                        return $"something went odd calling {urlCalled}:{result.ReasonPhrase}";
+                        return new
+                        {
+                            error= $"something went odd calling {urlCalled}:{result.ReasonPhrase}",
+                            variables=environmentVariables
+                        };
                     }
                     var zip = await result.Content.ReadAsStringAsync();
                     return zip;
