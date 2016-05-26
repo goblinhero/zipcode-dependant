@@ -1,5 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -13,7 +15,15 @@ namespace Xena.Micro.ZipCodeService
         public ZipcodeModule()
         {
             Get["/"] = p => GetService();
-            Get["/environment"] = p => Environment.GetEnvironmentVariables();
+            Get["/environment"] = p =>
+            {
+                var variables = Environment.GetEnvironmentVariables();
+                return variables.Keys.OfType<string>().Select(key => new
+                {
+                    key,
+                    value = variables[key]
+                }).OrderBy(v => v.key).ToList();
+            };
         }
 
         private async Task<object> GetService()
