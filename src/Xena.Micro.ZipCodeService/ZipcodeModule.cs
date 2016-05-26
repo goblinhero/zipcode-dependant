@@ -10,10 +10,10 @@ namespace Xena.Micro.ZipCodeService
 {
     public class ZipcodeModule : NancyModule
     {
-        private ZipcodeRepository _repository = new ZipcodeRepository();
         public ZipcodeModule()
         {
             Get["/"] = p => GetService();
+            Get["/environment"] = p => Environment.GetEnvironmentVariables();
         }
 
         private async Task<object> GetService()
