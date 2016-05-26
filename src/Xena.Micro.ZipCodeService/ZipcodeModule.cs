@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Nancy;
 using Nancy.Responses;
@@ -35,6 +36,7 @@ namespace Xena.Micro.ZipCodeService
                 using (var client = new HttpClient())
                 {
                     var urlCalled = $"http://zipcode:{port}/DK/Zip/9000";
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                     var result = await client.GetAsync(urlCalled);
                     if (!result.IsSuccessStatusCode)
                     {
