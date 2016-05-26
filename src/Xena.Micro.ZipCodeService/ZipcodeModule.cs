@@ -29,14 +29,13 @@ namespace Xena.Micro.ZipCodeService
         private async Task<object> GetService()
         {
             var environmentVariables = Environment.GetEnvironmentVariables();
-            var host = environmentVariables["ZIPCODE_SERVICE_HOST"];
             var port = environmentVariables["ZIPCODE_SERVICE_PORT"];
             try
             {
                 using (var client = new HttpClient())
                 {
                     //var urlCalled = $"https://10.2.2.2:8443/oapi/v1";
-                    var urlCalled = $"http://zipcode.xena.cluster.local/DK/Zip/9000";
+                    var urlCalled = $"http://zipcode:{port}/DK/Zip/9000";
                     //return new
                     //{
                     //    host,
