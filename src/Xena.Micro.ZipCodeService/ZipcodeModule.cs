@@ -34,20 +34,13 @@ namespace Xena.Micro.ZipCodeService
             {
                 using (var client = new HttpClient())
                 {
-                    //var urlCalled = $"https://10.2.2.2:8443/oapi/v1";
                     var urlCalled = $"http://zipcode:{port}/DK/Zip/9000";
-                    //return new
-                    //{
-                    //    host,
-                    //    port,
-                    //    urlCalled, 
-                    //    variables = environmentVariables
-                    //};
                     var result = await client.GetAsync(urlCalled);
                     if (!result.IsSuccessStatusCode)
                     {
                         return new
                         {
+                            client.BaseAddress,
                             error= $"something went odd calling {urlCalled}:{result.ReasonPhrase}",
                             variables=environmentVariables
                         };
