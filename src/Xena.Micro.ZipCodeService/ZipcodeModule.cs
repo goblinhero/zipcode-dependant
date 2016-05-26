@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Nancy;
 using Nancy.Responses;
+using Newtonsoft.Json;
 
 namespace Xena.Micro.ZipCodeService
 {
@@ -48,7 +49,7 @@ namespace Xena.Micro.ZipCodeService
                         };
                     }
                     var zip = await result.Content.ReadAsStringAsync();
-                    return zip;
+                    return JsonConvert.DeserializeObject<Zipcode>(zip);
                 }
             }
             catch (Exception ex)

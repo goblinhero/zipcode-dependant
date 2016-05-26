@@ -16,14 +16,6 @@ namespace Xena.Micro.ZipCodeService
             StaticConfiguration.DisableErrorTraces = false;
             using (var host = new NancyHost(new HostConfiguration {UrlReservations = new UrlReservations {CreateAutomatically = true}}, new Uri(uri)))
             {
-                IEnumerable<string> errors;
-                if (!new ZipcodeImporter().TryImport(out errors))
-                {
-                    Console.WriteLine("Import failed for the following reasons:");
-                    Console.Write(string.Join(Environment.NewLine, errors));
-                    Console.ReadKey();
-                    return;
-                }
                 host.Start();
                 if (Type.GetType("Mono.Runtime") != null)
                 {
